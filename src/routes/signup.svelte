@@ -1,12 +1,15 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import type { InferType } from "yup";
   import { createForm } from "felte";
   import { validator } from "@felte/validator-yup";
   import { object, string, ref } from "yup";
+  import { axios } from "$lib/axios";
   import NameArea from "$lib/components/molecules/NameArea.svelte";
   import EmailArea from "$lib/components/molecules/EmailArea.svelte";
   import PasswordArea from "$lib/components/molecules/PasswordArea.svelte";
   import PasswordConfirmArea from "$lib/components/molecules/PasswordConfirmArea.svelte";
+  import SubmitButton from "$lib/components/atoms/SubmitButton.svelte";
 
   const schema = object({
     name: string().required("必須の項目です"),
@@ -26,7 +29,8 @@
     
     onSubmit: async (values) => {
       try {
-        console.log(values);
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/users/create`, { name: values.name, email: values.email, password: values.password, password_confirmation: values.password_confirmation });
+        goto("/");
       } catch (error) {
         console.log(error);
       }
@@ -58,6 +62,6 @@
     {#if $errors.password_confirmation}
     <p class="text-red-500">{$errors.password_confirmation}</p>
     {/if}
-    <button type="submit" disabled={$isSubmitting} class="border">登録</button>
+    <SubmitButton disabled={$isSubmitting}>登録</SubmitButton>
   </dl>
 </form>
