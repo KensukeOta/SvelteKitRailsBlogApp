@@ -5,6 +5,7 @@
   import { validator } from "@felte/validator-yup";
   import { object, string, ref } from "yup";
   import { axios } from "$lib/axios";
+  import { authUser } from "$lib/stores/authUser";
   import NameArea from "$lib/components/molecules/NameArea.svelte";
   import EmailArea from "$lib/components/molecules/EmailArea.svelte";
   import PasswordArea from "$lib/components/molecules/PasswordArea.svelte";
@@ -30,7 +31,9 @@
     onSubmit: async (values) => {
       try {
         await axios.post(`${import.meta.env.VITE_API_URL}/api/users/create`, { name: values.name, email: values.email, password: values.password, password_confirmation: values.password_confirmation });
+        const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/login`, { email: values.email, password: values.password });
         goto("/");
+        authUser.update(n => n = res.data);
       } catch (error) {
         console.log(error);
       }
