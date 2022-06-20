@@ -5,9 +5,12 @@
   import { validator } from "@felte/validator-yup";
   import { object, string } from "yup";
   import { axios } from "$lib/axios";
+  import { authUser } from "$lib/stores/authUser";
   import EmailArea from "$lib/components/molecules/EmailArea.svelte";
   import PasswordArea from "$lib/components/molecules/PasswordArea.svelte";
   import SubmitButton from "$lib/components/atoms/SubmitButton.svelte";
+
+  let error: string;
 
   const schema = object({
     email: string().email("メールアドレスの形式ではありません").required("必須の項目です"),
@@ -23,7 +26,13 @@
     
     onSubmit: async (values) => {
       try {
-        console.log(values);
+        const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/login`, { email: values.email, password: values.password });
+        if (res.data.id) {
+          goto("/")
+          authUser.update(n => n = res.data);
+        } else {
+          error = res.data.message;
+        }
       } catch (error) {
         console.log(error);
       }
@@ -38,6 +47,9 @@
 <h1 class="font-bold">ログインフォーム</h1>
 
 <form use:form>
+  {#if error}
+    <p class="text-red-500">{error}</p>
+  {/if}
   <dl>
     <EmailArea />
     {#if $errors.email}
