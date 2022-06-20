@@ -28,7 +28,8 @@
     
     onSubmit: async (values) => {
       try {
-        console.log(values);
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/posts/create`, { title: values.title, body: values.body, user_id: values.user_id });
+        goto("/");
       } catch (error) {
         console.log(error);
       }
