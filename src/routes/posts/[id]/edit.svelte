@@ -31,7 +31,8 @@
     
     onSubmit: async (values) => {
       try {
-        console.log(values);
+        await axios.patch(`${import.meta.env.VITE_API_URL}/api/posts/${post.id}/update`, { title: values.title, body: values.body, user_id: values.user_id });
+        goto("/");
       } catch (error) {
         console.log(error);
       }
