@@ -5,6 +5,8 @@
 </script>
 
 <li class="border p-2">
-  <h1 class="font-bold">{post.title}</h1>
+  <a href={`/posts/${post.id}`}>
+    <h1 class="font-bold">{post.title}</h1>
+  </a>
   <p>by {post.user.name}</p>
 </li>
