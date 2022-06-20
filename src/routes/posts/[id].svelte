@@ -9,4 +9,4 @@
 </svelte:head>
 
 <h1 class="font-bold">{post.title}</h1>
-<p>{post.body}</p>
+<p class="whitespace-pre-line">{post.body}</p>
