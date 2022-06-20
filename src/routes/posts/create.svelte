@@ -12,6 +12,12 @@
   import UserIdInput from "$lib/components/atoms/UserIdInput.svelte";
   import SubmitButton from "$lib/components/atoms/SubmitButton.svelte";
 
+  onMount(() => {
+    if (!$authUser) {
+      goto("/login")
+    }
+  });
+
   const schema = object({
     title: string().required("必須の項目です").max(50, "50文字以内で入力してください"),
     body: string().required("必須の項目です").max(1000, "1000文字以内で入力してください。"),
