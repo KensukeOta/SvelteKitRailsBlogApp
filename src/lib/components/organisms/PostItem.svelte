@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Post } from "$lib/types/Post";
-import PostEditLink from "../atoms/PostEditLink.svelte";
+  import { authUser } from "$lib/stores/authUser";
+  import PostEditLink from "../atoms/PostEditLink.svelte";
 
   export let post: Post;
 </script>
@@ -11,6 +12,8 @@ import PostEditLink from "../atoms/PostEditLink.svelte";
   </a>
   <nav class="flex justify-between">
     <p>by {post.user.name}</p>
+    {#if $authUser.id === post.user_id}
     <PostEditLink id={post.id} />
+    {/if}
   </nav>
 </li>

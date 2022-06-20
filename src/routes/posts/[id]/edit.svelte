@@ -15,6 +15,12 @@
   
   export let post: Post;
 
+  onMount(() => {
+    if ($authUser.id !== post.user_id) {
+      goto("/");
+    }
+  });
+
   const schema = object({
     title: string().required("必須の項目です").max(50, "50文字以内で入力してください"),
     body: string().required("必須の項目です").max(1000, "1000文字以内で入力してください。"),
