@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
   import type { InferType } from "yup";
+  import { goto } from "$app/navigation";
+  import { onMount } from "svelte";
   import { createForm } from "felte";
   import { validator } from "@felte/validator-yup";
   import { object, string, ref } from "yup";
@@ -11,6 +12,12 @@
   import PasswordArea from "$lib/components/molecules/PasswordArea.svelte";
   import PasswordConfirmArea from "$lib/components/molecules/PasswordConfirmArea.svelte";
   import SubmitButton from "$lib/components/atoms/SubmitButton.svelte";
+
+   onMount(() => {
+    if ($authUser) {
+      goto("/");
+    }
+  });
 
   const schema = object({
     name: string().required("必須の項目です"),

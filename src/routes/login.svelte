@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
   import type { InferType } from "yup";
+  import { goto } from "$app/navigation";
+  import { onMount } from "svelte";
   import { createForm } from "felte";
   import { validator } from "@felte/validator-yup";
   import { object, string } from "yup";
@@ -9,6 +10,12 @@
   import EmailArea from "$lib/components/molecules/EmailArea.svelte";
   import PasswordArea from "$lib/components/molecules/PasswordArea.svelte";
   import SubmitButton from "$lib/components/atoms/SubmitButton.svelte";
+
+  onMount(() => {
+    if ($authUser) {
+      goto("/");
+    }
+  });
 
   let error: string;
 
@@ -28,7 +35,7 @@
       try {
         const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/login`, { email: values.email, password: values.password });
         if (res.data.id) {
-          goto("/")
+          goto("/");
           authUser.update(n => n = res.data);
         } else {
           error = res.data.message;
