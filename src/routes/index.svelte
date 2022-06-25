@@ -22,5 +22,7 @@
 <ul>
 {#each posts as post (post.id)}
   <PostItem post={post} />
+{:else}
+  <p class="font-bold text-center p-2">記事が投稿されていません</p>
 {/each}
 </ul>
