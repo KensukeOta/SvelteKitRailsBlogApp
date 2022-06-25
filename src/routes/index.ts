@@ -1,6 +1,7 @@
+import type { RequestHandler } from "@sveltejs/kit";
 import { axios } from "$lib/axios";
 
-export async function get() {
+export const get: RequestHandler = async () => {
   const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/posts`);
   const posts = res.data
 
@@ -13,4 +14,4 @@ export async function get() {
   return {
     status: 404
   };
-}
+};
