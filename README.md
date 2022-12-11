@@ -5,7 +5,7 @@ SvelteKitを使用した完全SPAのブログアプリです。
 ## 使用した技術・ツール
 - 開発環境: __Docker__, __docker-compose__
 - バックエンド: __Ruby on Rails7.0.3__
-https://github.com/KensukeOta/API-for-SvelteKitBlogApp
+https://github.com/KensukeOta/API-for-SvelteKitRailsBlogApp
 - フロントエンド: __SvelteKit__
 - UIコンポーネントライブラリ: __Tailwind CSS__
 - フォームライブラリ: __Felte1.2.2__, __@felte/validator-yup1.0.8__, __yup0.32.11__
